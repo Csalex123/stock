@@ -3,7 +3,8 @@ import React from 'react';
 import Header from '../Header';
 
 import '../../global.css';
-import Button from '../Button';
+import Button from '../../shared/Button';
+import Container from '../../shared/Container';
 
 // function TestComponent() {
 //   return <div>Componente de teste.</div>
@@ -14,14 +15,14 @@ function App() {
     <div className="App">
       <Header title="Stock" />
 
-      <div className="container">
-      
+      <Container>
+
         <Button
           // testComponent={<TestComponent />}
           onClick={() => window.alert('teste')}>
           Botão 1
         </Button>
-      </div>
+      </Container>
 
     </div>
   );
