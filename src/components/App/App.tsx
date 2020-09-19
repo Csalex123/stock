@@ -1,10 +1,13 @@
 import React from 'react';
+
+import Header from '../Header';
+
 import '../../global.css';
 
 function App() {
   return (
     <div className="App">
-        <p>Teste</p>
+        <Header title="Stock"/>
     </div>
   );
 }
