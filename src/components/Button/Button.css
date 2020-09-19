@@ -1,0 +1,10 @@
+button.AppButton{
+    background-color: var(--azul);
+    color: var(--branco);
+    border-radius: 5px;
+    box-shadow: 0 3px 6px;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 30px 10px;
+}
