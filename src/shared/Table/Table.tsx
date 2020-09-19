@@ -7,7 +7,7 @@ declare interface TableProps {
 
 const Table: React.FC<TableProps> = (props) => {
     return (
-        <table>
+        <table className="AppTable">
             <thead>
                 <tr>
                     <th>Product</th>
@@ -20,7 +20,22 @@ const Table: React.FC<TableProps> = (props) => {
                 <tr>
                     <td>Teste</td>
                     <td>teste2</td>
-                    <td>teste3</td>
+                    <td>08</td>
+                </tr>
+                <tr>
+                    <td>Teste</td>
+                    <td>teste2</td>
+                    <td>08</td>
+                </tr>
+                <tr>
+                    <td>Teste</td>
+                    <td>teste2</td>
+                    <td>08</td>
+                </tr>
+                <tr>
+                    <td>Teste</td>
+                    <td>teste2</td>
+                    <td>08</td>
                 </tr>
             </tbody>
         </table>

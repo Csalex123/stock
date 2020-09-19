@@ -1,0 +1,43 @@
+table.AppTable {
+    margin-top: 30px;
+    width: 100%;
+    box-shadow: 0 3px 6px rgba(#000, 0.1);
+    border-collapse: collapse;
+
+    thead {
+        background-color: var(--azul);
+
+        tr th {
+            
+            color: rgba(#fff, 0.8);
+            text-align: left;
+            padding: 7px 10px;
+            font-size: 0.8em;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.75px;
+
+            &:last-child{
+                text-align: right;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            &:hover{
+                background-color: rgba(#000, .05);
+                
+            }
+
+            td {
+                padding: 7px 10px;
+                color: #222;
+
+                &:last-child{
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
