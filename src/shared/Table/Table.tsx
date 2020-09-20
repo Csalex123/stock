@@ -1,42 +1,33 @@
 import React from 'react';
+import Products from './Table.mockdata';
+
 import './Table.scss';
 
-declare interface TableProps {
+const headers = [
+    { key: 'name', value: 'Product' },
+    { key: 'price', value: 'Price' },
+    { key: 'stock', value: 'Available Stock' },
+]
 
-}
-
-const Table: React.FC<TableProps> = (props) => {
+const Table = () => {
     return (
         <table className="AppTable">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Stock</th>
+                    {
+                        headers.map(header => <th key={header.key}> {header.value} </th>)
+                    }
                 </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td>Teste</td>
-                    <td>teste2</td>
-                    <td>08</td>
-                </tr>
-                <tr>
-                    <td>Teste</td>
-                    <td>teste2</td>
-                    <td>08</td>
-                </tr>
-                <tr>
-                    <td>Teste</td>
-                    <td>teste2</td>
-                    <td>08</td>
-                </tr>
-                <tr>
-                    <td>Teste</td>
-                    <td>teste2</td>
-                    <td>08</td>
-                </tr>
+                {
+                    Products.map(product => <tr>
+                        <td>{product.name}</td>
+                        <td>${product.price}</td>
+                        <td>{product.stock}</td>
+                    </tr>)
+                }
             </tbody>
         </table>
     );

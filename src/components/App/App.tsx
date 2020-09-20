@@ -14,7 +14,9 @@ function App() {
       <Header title="Stock" />
 
       <Container>
-          <Table />
+          <Table 
+            
+          />
       </Container>
 
     </div>
