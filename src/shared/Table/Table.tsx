@@ -9,7 +9,27 @@ const headers = [
     { key: 'stock', value: 'Available Stock' },
 ]
 
+declare interface TableHeader {
+    key: string,
+    value: string
+}
+
+type indexedHeader = {
+    [key: string]: TableHeader
+}
+
+function organizeDate(Data: [], hrader: TableHeader[]) {
+    const indexedHeader: indexedHeader = {}
+
+    headers.forEach(header => {
+        indexedHeader[header.key] = { ...header }
+    });
+
+    const headerKeysInOrder = Object.keys(indexedHeader);
+}
+
 const Table = () => {
+    organizeDate([], headers);
     return (
         <table className="AppTable">
             <thead>
@@ -22,7 +42,7 @@ const Table = () => {
 
             <tbody>
                 {
-                    Products.map(product => <tr>
+                    Products.map(product => <tr key={product.id}>
                         <td>{product.name}</td>
                         <td>${product.price}</td>
                         <td>{product.stock}</td>
