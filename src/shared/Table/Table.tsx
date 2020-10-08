@@ -2,21 +2,8 @@ import React from 'react';
 import './Table.scss';
 import organizeDate from '../../utils/organizeDateForTable';
 
-
-const headers = [
-    { key: 'name', value: 'Product' },
-    { key: 'price', value: 'Price' },
-    { key: 'stock', value: 'Available Stock' },
-]
-
-
-declare interface TableHeader {
-    key: string,
-}
-
 export interface TableHeader {
     key: string
-
     value: string
     right?: boolean
 }
@@ -31,25 +18,6 @@ declare interface TableProps {
     onDetail?: (item: any) => void
     onEdit?: (item: any) => void
 }
-
-type indexedHeader = {
-    [key: string]: TableHeader
-}
-
-function organizeDate(Data: [], hrader: TableHeader[]) {
-    const indexedHeader: indexedHeader = {}
-
-
-    enableActions?: boolean
-
-    onDelete?: (item: any) => void
-    onDetail?: (item: any) => void
-    onEdit?: (item: any) => void
-}
-
-
-const Table: React.FC<TableProps> = () => {
-    organizeDate([], headers);
 
 
 const Table: React.FC <TableProps> = (props) => {
