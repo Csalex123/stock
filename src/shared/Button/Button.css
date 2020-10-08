@@ -6,5 +6,5 @@ button.AppButton{
     border: none;
     padding: 10px 15px;
     cursor: pointer;
-    margin: 30px 10px;
+    /* margin: 2px 2px; */
 }

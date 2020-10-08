@@ -13,7 +13,7 @@ const headers: TableHeader[] = [
     { key: 'id', value: '#' },
     { key: 'name', value: 'Product' },
     { key: 'price', value: 'Price' },
-    { key: 'stock', value: 'Available Stock', right: true },
+    { key: 'stock', value: 'Available Stock', right: true},
 ]
 
 
@@ -49,6 +49,11 @@ function App() {
                 <Table
                     data={products}
                     headers={headers}
+                    enableActions
+                    onDelete={console.log}
+                    onDetail={console.log}
+                    onEdit={console.log}
+
                 />
                 <ProductForm 
                     form={updatingProduct}
