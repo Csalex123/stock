@@ -9,9 +9,21 @@ const headers = [
     { key: 'stock', value: 'Available Stock' },
 ]
 
+
 declare interface TableHeader {
     key: string,
     value: string
+}
+
+declare interface TableProps {
+    headers: TableHeader[]
+    data: any
+
+    enableActions?: boolean
+
+    onDelete?: (item: any) => void
+    onDetail?: (item: any) => void
+    onEdit?: (item: any) => void
 }
 
 type indexedHeader = {
@@ -28,7 +40,7 @@ function organizeDate(Data: [], hrader: TableHeader[]) {
     const headerKeysInOrder = Object.keys(indexedHeader);
 }
 
-const Table = () => {
+const Table: React.FC<TableProps> = () => {
     organizeDate([], headers);
     return (
         <table className="AppTable">
