@@ -1,6 +1,5 @@
 import { TableHeader } from "../shared/Table";
 
-
 type indexedHeader = {
     [key: string]: TableHeader
 }
