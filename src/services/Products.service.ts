@@ -9,13 +9,13 @@ export const getAllProducts = () => {
 }
 
 export const createSingleProduct = (product: ProductCreator) => {
-    return http.
-        post('/products', product)
+    return http
+        .post('/products', product)
 }
 
 export const updateSingleProduct = ({ _id, name, price, stock }: Product) => {
-    return http.
-        patch(`/products/${_id}`, {
+    return http
+        .patch(`/products/${_id}`, {
             ...(name && { name }),
             ...(price && { price }),
             ...(stock && { stock })
