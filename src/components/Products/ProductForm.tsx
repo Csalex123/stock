@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Form from '../../shared/Form';
 import Input from '../../shared/Input';
 import Button from '../../shared/Button';
-import Products, { Product } from '../../shared/Table/Table.mockdata';
+import { Product } from '../../shared/Table/Table.mockdata';
 
 declare interface InitialFormState {
     id?: number
@@ -24,21 +24,21 @@ declare interface ProductFormProps {
     onUpdate?: (product: Product) => void
 }
 
-const ProductForm: React.FC <ProductFormProps> = (props) => {
+const ProductForm: React.FC<ProductFormProps> = (props) => {
 
-    const initialFormState: InitialFormState = props.form 
-    ? {
-        id: props.form.id,
-        name: props.form.name,
-        price: String(props.form.price),
-        stock: String(props.form.stock),
-    }
-    : {
-        name: '',
-        price: '',
-        stock: '',
-    }
- 
+    const initialFormState: InitialFormState = props.form
+        ? {
+            id: props.form.id,
+            name: props.form.name,
+            price: String(props.form.price),
+            stock: String(props.form.stock),
+        }
+        : {
+            name: '',
+            price: '',
+            stock: '',
+        }
+
 
     const [form, setForm] = useState(initialFormState);
 
@@ -82,7 +82,7 @@ const ProductForm: React.FC <ProductFormProps> = (props) => {
 
     const handleFormSubmit = () => {
 
-        form.id 
+        form.id
             ? updateProduct(form)
             : createProduct(form)
 
@@ -121,7 +121,7 @@ const ProductForm: React.FC <ProductFormProps> = (props) => {
                 required
                 value={form.stock}
             />
-            <Button> { !form.id ? 'Submit' : 'Update' } </Button>
+            <Button> {!form.id ? 'Submit' : 'Update'} </Button>
         </Form>
     );
 };
