@@ -5,11 +5,12 @@ import {
     createSingleProduct,
     updateSingleProduct,
     deleteSingleProduct,
-    getAllProducts,
+    // getAllProducts,
 } from '../../services/Products.service';
 import Table, { TableHeader } from '../../shared/Table';
 import { Product } from '../../shared/Table/Table.mockdata';
 import ProductForm, { ProductCreator } from './ProductForm';
+import { useSelector } from 'react-redux';
 
 const headers: TableHeader[] = [
     { key: 'id', value: '#' },
@@ -19,12 +20,16 @@ const headers: TableHeader[] = [
 ]
 
 const ProductCRUD = () => {
-    const [products, setProducts] = useState<Product[]>([]);
+    // const [products, setProducts] = useState<Product[]>([]);
     const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>();
 
+    const products = useSelector<any>(state => {
+        return state.product;
+    })
+
     async function fetchData() {
-        const _products = await getAllProducts();
-        setProducts(_products);
+        // const _products = await getAllProducts();
+        // setProducts(_products);
     }
 
     useEffect(() => {
