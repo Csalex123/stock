@@ -47,42 +47,42 @@ const Table: React.FC<TableProps> = (props) => {
             </thead>
 
             <tbody>
-                {   
-                    organizedData.length > 0 ? 
-                        organizedData.map((row, index) => {
-                            return (
-                                <tr key={index}>
-                                    {
-                                        Object
-                                            .keys(row)
-                                            .map((item, index) => item !== '$original'
-                                                ? <td
-                                                    key={row.$original.id + index}
-                                                    className={indexedHeader[item].right ? 'right' : ''}>
-                                                    {row[item]}
-                                                </td>
-                                                : null
-                                            )
-                                    }
+                {
 
-                                    {
-                                        props.enableActions &&
-                                        <td className="actions right">
-                                            {
-                                                props.onEdit && <Button  onClick={() => props.onEdit && props.onEdit(row)}>Edit</Button>
-                                            }
-                                            {
-                                                props.onDelete && <Button onClick={() => props.onDelete && props.onDelete(row)}>Delete</Button>
-                                            }
-                                            {
-                                                props.onDetail && <Button onClick={() => props.onDetail && props.onDetail(row)}>Detail</Button>
-                                            }
-                                        </td>
-                                    }
-                                </tr>
-                            )
-                        }) : <td style={{ textAlign: 'center' }}>Tabela não tem Produto</td>
-                } 
+                    organizedData.map((row, index) => {
+                        return (
+                            <tr key={index}>
+                                {
+                                    Object
+                                        .keys(row)
+                                        .map((item, index) => item !== '$original'
+                                            ? <td
+                                                key={row.$original._id + index}
+                                                className={indexedHeader[item].right ? 'right' : ''}>
+                                                {row[item]}
+                                            </td>
+                                            : null
+                                        )
+                                }
+
+                                {
+                                    props.enableActions &&
+                                    <td className="actions right">
+                                        {
+                                            props.onEdit && <Button onClick={() => props.onEdit && props.onEdit(row.$original)}>Edit</Button>
+                                        }
+                                        {
+                                            props.onDelete && <Button onClick={() => props.onDelete && props.onDelete(row.$original)}>Delete</Button>
+                                        }
+                                        {
+                                            props.onDetail && <Button onClick={() => props.onDetail && props.onDetail(row.$original)}>Detail</Button>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        )
+                    })
+                }
             </tbody>
         </table>
     );
