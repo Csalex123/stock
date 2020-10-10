@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Swal from 'sweetalert2';
 
 import {
-    createSingleProduct,
+    // createSingleProduct,
     updateSingleProduct,
     deleteSingleProduct,
 } from '../../services/Products.service';
@@ -19,11 +19,7 @@ const headers: TableHeader[] = [
     { key: 'stock', value: 'Available Stock', right: true },
 ]
 
-declare interface ProductsCRUDProps {
-
-}
-
-const ProductCRUD: React.FC<ProductsCRUDProps> = (props) => {
+const ProductCRUD = () => {
     const dispatch = useDispatch();
     const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>();
 
@@ -32,12 +28,13 @@ const ProductCRUD: React.FC<ProductsCRUDProps> = (props) => {
     })
 
     async function fetchData() {
-        dispatch(getProducts())
+        try {
+            await dispatch(getProducts());
+        } catch (err) {
+            Swal.fire('Opps!', err.message, 'error');
+        }
     }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     const handleProductSubmit = async (product: ProductCreator) => {
         try {
