@@ -2,15 +2,16 @@ import React from 'react';
 
 import './Button.css';
 
+
 declare interface ButtonProps {
     onClick?: () => void
     // testComponent?: JSX.Element
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = ({ onClick, children }) => {
     return (
-        <button className="AppButton" onClick={props.onClick}>
-            {props.children || 'Button'}
+        <button className="AppButton" onClick={onClick}>
+            {children || 'Button'}
             {/* {props.testComponent || 'Component de Teste'} */}
         </button>
     );

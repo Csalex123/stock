@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Swal from 'sweetalert2';
 
 import {
     createSingleProduct,
     updateSingleProduct,
     deleteSingleProduct,
-    // getAllProducts,
 } from '../../services/Products.service';
 import Table, { TableHeader } from '../../shared/Table';
 import { Product } from '../../shared/Table/Table.mockdata';
 import ProductForm, { ProductCreator } from './ProductForm';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { insertNewProduct } from '../../redux/Products/Products.actions'
 
 const headers: TableHeader[] = [
     { key: 'id', value: '#' },
@@ -19,8 +19,12 @@ const headers: TableHeader[] = [
     { key: 'stock', value: 'Available Stock', right: true },
 ]
 
-const ProductCRUD = () => {
-    // const [products, setProducts] = useState<Product[]>([]);
+declare interface ProductsCRUDProps {
+
+}
+
+const ProductCRUD: React.FC<ProductsCRUDProps> = (props) => {
+    const dispatch = useDispatch();
     const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>();
 
     const products = useSelector<any>(state => {
@@ -28,8 +32,7 @@ const ProductCRUD = () => {
     })
 
     async function fetchData() {
-        // const _products = await getAllProducts();
-        // setProducts(_products);
+
     }
 
     useEffect(() => {
@@ -38,8 +41,9 @@ const ProductCRUD = () => {
 
     const handleProductSubmit = async (product: ProductCreator) => {
         try {
-            await createSingleProduct(product);
-            fetchData();
+            dispatch(insertNewProduct(product));
+            // await createSingleProduct(product);
+            // fetchData();
         } catch (err) {
             Swal.fire('Opps!', err.message, 'error');
         }
@@ -56,20 +60,20 @@ const ProductCRUD = () => {
             Swal.fire('Oops!', err.message, 'error');
         }
 
-
     }
 
     const handleProductEdit = (product: Product) => {
         setUpdatingProduct(product);
     }
 
-    const handleProductDetail = (product: Product) => {
+    const handleProductDetail = useCallback((product: Product) => {
+
         Swal.fire(
             'Product detail',
             `${product.name} costs $${product.price} and we have ${product.stock} available in stock.`,
             'info'
         )
-    }
+    }, []);
 
     const deleteProduct = async (id: string) => {
         try {
