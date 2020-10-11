@@ -11,11 +11,6 @@ const Header: React.FC<HeaderProps> = (props) => {
     return (
         <header className="AppHeader">
             <h1>{props.title || 'Teste'}</h1>
-            <span>
-                {
-                    console.log
-                }
-            </span>
         </header>
     )
 }
