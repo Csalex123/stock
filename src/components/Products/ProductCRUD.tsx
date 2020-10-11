@@ -6,7 +6,7 @@ import { Product } from '../../shared/Table/Table.mockdata';
 import ProductForm, { ProductCreator } from './ProductForm';
 import { useSelector, useDispatch } from 'react-redux';
 import * as ProductActions from '../../redux/Products/Products.actions'
-import { RootState } from '../../redux/store';
+import { RootState, ThunkDispatch } from '../../redux/store';
 
 const headers: TableHeader[] = [
     { key: 'id', value: '#' },
@@ -16,52 +16,39 @@ const headers: TableHeader[] = [
 ]
 
 const ProductCRUD = () => {
-    const dispatch = useDispatch();
+    const dispatch: ThunkDispatch = useDispatch();
     const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>();
 
     const products = useSelector<RootState>(state => {
         return state.product;
     })
 
-    async function fetchData() {
-        try {
-            await dispatch(ProductActions.getProducts());
-        } catch (err) {
-            Swal.fire('Opps!', err.message, 'error');
-        }
-    }
-
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line
     }, []);
 
-    const handleProductSubmit = async (product: ProductCreator) => {
-        try {
-            await dispatch(ProductActions.insertNewProduct(product));
-        } catch (err) {
-            Swal.fire('Opps!', err.message, 'error');
-        }
+    async function fetchData() {
+        dispatch(ProductActions.getProducts())
+            .catch(showErrorAlert);
+    }
 
+    const showErrorAlert = (err: Error) => {
+        return Swal.fire('Opps!', err.message, 'error');
+    }
+
+    const handleProductSubmit = async (product: ProductCreator) => {
+        dispatch(ProductActions.insertNewProduct(product))
+            .catch(showErrorAlert);
     }
 
     const handleProductUpdate = async (newProduct: Product) => {
-
-        try {
-            await dispatch(ProductActions.updateProducts(newProduct))
-            setUpdatingProduct(undefined);
-        } catch (err) {
-            Swal.fire('Oops!', err.message, 'error');
-        }
-
-    }
-
-    const handleProductEdit = (product: Product) => {
-        setUpdatingProduct(product);
+        dispatch(ProductActions.updateProducts(newProduct))
+            .then(() => setUpdatingProduct(undefined))
+            .catch(showErrorAlert);
     }
 
     const handleProductDetail = useCallback((product: Product) => {
-
         Swal.fire(
             'Product detail',
             `${product.name} costs $${product.price} and we have ${product.stock} available in stock.`,
@@ -70,13 +57,11 @@ const ProductCRUD = () => {
     }, []);
 
     const deleteProduct = async (id: string) => {
-        try {
-            await ProductActions.deleteProduct(id);
-            Swal.fire('Unhul!', 'Product successfully deleted', 'success');
-        } catch (err) {
-            Swal.fire('Opps!', err.message, 'error');
-        }
-
+        dispatch(ProductActions.deleteProduct(id))
+            .then(() => {
+                Swal.fire('Unhul!', 'Product successfully deleted', 'success');
+            })
+            .catch(showErrorAlert)
     }
 
     const handleProductDelete = (product: Product) => {
@@ -88,10 +73,8 @@ const ProductCRUD = () => {
             confirmButtonColor: '#09f',
             cancelButtonColor: '#d33',
             confirmButtonText: `Yes, delete ${product.name}!`
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteProduct(product._id);
-            }
+        }).then(({ value }) => {
+            return value && deleteProduct(product._id);
         })
     }
 
@@ -102,7 +85,7 @@ const ProductCRUD = () => {
             enableActions
             onDelete={handleProductDelete}
             onDetail={handleProductDetail}
-            onEdit={handleProductEdit}
+            onEdit={setUpdatingProduct}
 
         />
         <ProductForm

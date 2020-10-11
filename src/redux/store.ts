@@ -31,4 +31,6 @@ export type RootState = ReturnType<typeof rootReducer>;
 export type Thunk<T = any> =
     ThunkAction<void, RootState, unknown, Action<T>>
 
+export type ThunkDispatch = (Thunk: Thunk) => Promise<Thunk>
+
 export default store;
