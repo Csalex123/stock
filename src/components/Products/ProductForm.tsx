@@ -11,7 +11,6 @@ declare interface InitialFormState {
     stock: string
 }
 
-
 export interface ProductCreator {
     name: string
     price: number

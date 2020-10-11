@@ -1,16 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-import {
-    // createSingleProduct,
-    updateSingleProduct,
-    deleteSingleProduct,
-} from '../../services/Products.service';
 import Table, { TableHeader } from '../../shared/Table';
 import { Product } from '../../shared/Table/Table.mockdata';
 import ProductForm, { ProductCreator } from './ProductForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProducts, insertNewProduct } from '../../redux/Products/Products.actions'
+import * as ProductActions from '../../redux/Products/Products.actions'
+import { RootState } from '../../redux/store';
 
 const headers: TableHeader[] = [
     { key: 'id', value: '#' },
@@ -23,24 +19,26 @@ const ProductCRUD = () => {
     const dispatch = useDispatch();
     const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>();
 
-    const products = useSelector<any>(state => {
+    const products = useSelector<RootState>(state => {
         return state.product;
     })
 
     async function fetchData() {
         try {
-            await dispatch(getProducts());
+            await dispatch(ProductActions.getProducts());
         } catch (err) {
             Swal.fire('Opps!', err.message, 'error');
         }
     }
 
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line
+    }, []);
 
     const handleProductSubmit = async (product: ProductCreator) => {
         try {
-            dispatch(insertNewProduct(product));
-            // await createSingleProduct(product);
-            // fetchData();
+            await dispatch(ProductActions.insertNewProduct(product));
         } catch (err) {
             Swal.fire('Opps!', err.message, 'error');
         }
@@ -50,9 +48,8 @@ const ProductCRUD = () => {
     const handleProductUpdate = async (newProduct: Product) => {
 
         try {
-            await updateSingleProduct(newProduct);
+            await dispatch(ProductActions.updateProducts(newProduct))
             setUpdatingProduct(undefined);
-            fetchData();
         } catch (err) {
             Swal.fire('Oops!', err.message, 'error');
         }
@@ -74,8 +71,7 @@ const ProductCRUD = () => {
 
     const deleteProduct = async (id: string) => {
         try {
-            await deleteSingleProduct(id);
-            fetchData();
+            await ProductActions.deleteProduct(id);
             Swal.fire('Unhul!', 'Product successfully deleted', 'success');
         } catch (err) {
             Swal.fire('Opps!', err.message, 'error');
