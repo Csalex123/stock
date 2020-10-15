@@ -5,12 +5,16 @@ import {
     applyMiddleware
 } from 'redux';
 import thunk, { ThunkAction } from 'redux-thunk';
-import Products from './Products/Products.reducer';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import Products from './Products/Products.reducer';
+import AuthenticationReducer from './Authentication/Authentication.reducer';
+
+
 const rootReducer = combineReducers({
     product: Products,
+    authentication: AuthenticationReducer,
 });
 
 const persistedReducer = persistReducer({

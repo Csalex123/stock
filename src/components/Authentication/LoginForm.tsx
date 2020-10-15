@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+import { login } from '../../redux/Authentication/Authentication.actions';
 
 import Button from '../../shared/Button';
 import Form from '../../shared/Form';
 import Input from '../../shared/Input';
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
+
     const initial_form = {
         user: '',
         password: '',
@@ -19,8 +24,12 @@ const LoginForm = () => {
         })
     }
 
-    const handleLogin = () => {
-        console.log(form);
+    const handleLogin = async () => {
+        try {
+            await dispatch(login(form))
+        } catch (error) {
+            Swal.fire('Error', error.response?.data?.message || error.message, 'error');
+        }
     }
 
     return (
@@ -31,6 +40,7 @@ const LoginForm = () => {
                 placeholder="E.g: your_user_name32"
                 value={form.user}
                 onChange={handleInputChange}
+                required
             />
             <Input
                 label="PPassword"
@@ -38,6 +48,7 @@ const LoginForm = () => {
                 name="password"
                 value={form.password}
                 onChange={handleInputChange}
+                required
             />
             <Button>Login</Button>
         </Form>

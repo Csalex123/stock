@@ -10,7 +10,7 @@ declare interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ onClick, children }) => {
     return (
-        <button className="AppButton" onClick={onClick}>
+        <button type="submit" className="AppButton" onClick={onClick}>
             {children || 'Button'}
             {/* {props.testComponent || 'Component de Teste'} */}
         </button>
