@@ -7,27 +7,32 @@ export interface User {
     email: string
 }
 
+export interface Product {
+    name: string,
+    price: number,
+    stock: number,
+}
+
 declare interface ProfileCardProps {
     user: User
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = (props) => {
 
-
     return (
         <>
             <Form title='Profile'>
-                <Input 
+                <Input
                     label='Name'
                     value={props.user.name}
                     disabled
                 />
-                <Input 
+                <Input
                     label='Email'
                     value={props.user.email}
                     disabled
                 />
-                
+    
             </Form>
         </>
     );

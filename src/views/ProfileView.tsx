@@ -9,7 +9,7 @@ declare interface ProfileViewProps {
 }
 
 const ProfileView: React.FC<ProfileViewProps> = (props) => {
-    
+
     return (
         <>
             <Header title="AlgaStock" />
