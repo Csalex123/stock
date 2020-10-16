@@ -20,16 +20,18 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer({
     key: 'algastock',
     storage,
-    blacklist:['product']
+    blacklist: ['product']
 }, rootReducer);
+
+const enhancers = [
+    applyMiddleware(thunk),
+    //@ts-ignore
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+].filter(e => e);
 
 const store = createStore(
     persistedReducer,
-    compose(
-        applyMiddleware(thunk),
-        //@ts-ignore
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    compose(...enhancers)
 );
 
 const persistor = persistStore(store);
