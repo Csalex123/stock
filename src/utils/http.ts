@@ -1,10 +1,17 @@
 import axios from 'axios';
+import { store } from '../redux/store';
 
 const http = axios.create({
     baseURL: 'http://localhost:3024',
-    headers: {
-        authorization: 'Bearer'
-    }
+});
+
+http.interceptors.request.use(config => {
+    const token = store.getState().authentication.profile?.token;
+
+    if (token)
+        config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
 });
 
 export default http;
