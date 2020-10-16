@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { login } from '../../redux/Authentication/Authentication.actions';
 
@@ -9,6 +10,7 @@ import Input from '../../shared/Input';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const initial_form = {
         user: '',
@@ -26,7 +28,8 @@ const LoginForm = () => {
 
     const handleLogin = async () => {
         try {
-            await dispatch(login(form))
+            await dispatch(login(form));
+            history.push('/');
         } catch (error) {
             Swal.fire('Error', error.response?.data?.message || error.message, 'error');
         }
